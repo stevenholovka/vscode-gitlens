@@ -827,6 +827,18 @@ export class Repository implements Disposable {
 		);
 	}
 
+	rebaseAbort() {
+		return Container.git.rebaseAbort(this.path);
+	}
+
+	rebaseContinue() {
+		return Container.git.rebaseContinue(this.path);
+	}
+
+	rebaseEditTodo() {
+		return Container.git.rebaseEditTodo(this.path);
+	}
+
 	@gate(() => '')
 	@log()
 	reset(...args: string[]) {

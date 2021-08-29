@@ -40,6 +40,7 @@ import {
 	PageableViewNode,
 	PagerNode,
 	PullRequestNode,
+	RebaseStatusNode,
 	RemoteNode,
 	RemotesNode,
 	RepositoryFolderNode,
@@ -224,6 +225,8 @@ export class ViewCommands {
 
 		commands.registerCommand('gitlens.views.createPullRequest', this.createPullRequest, this);
 		commands.registerCommand('gitlens.views.openPullRequest', this.openPullRequest, this);
+
+		commands.registerCommand('gitlens.views.openRebaseEditor', this.openRebaseEditor, this);
 	}
 
 	@debug()
@@ -436,6 +439,13 @@ export class ViewCommands {
 	}
 
 	@debug()
+	private openInTerminal(node: RepositoryNode | RepositoryFolderNode) {
+		if (!(node instanceof RepositoryNode) && !(node instanceof RepositoryFolderNode)) return Promise.resolve();
+
+		return commands.executeCommand(BuiltInCommands.OpenInTerminal, Uri.file(node.repo.path));
+	}
+
+	@debug()
 	private openPullRequest(node: PullRequestNode) {
 		if (!(node instanceof PullRequestNode)) return Promise.resolve();
 
@@ -454,14 +464,14 @@ export class ViewCommands {
 	}
 
 	@debug()
-	private openInTerminal(node: RepositoryNode | RepositoryFolderNode) {
-		if (!(node instanceof RepositoryNode) && !(node instanceof RepositoryFolderNode)) return Promise.resolve();
+	private openRebaseEditor(node: RebaseStatusNode) {
+		if (!(node instanceof RebaseStatusNode)) return Promise.resolve();
 
-		return commands.executeCommand(BuiltInCommands.OpenInTerminal, Uri.file(node.repo.path));
+		return node.openEditor();
 	}
 
 	@debug()
-	private async pruneRemote(node: RemoteNode) {
+	private pruneRemote(node: RemoteNode) {
 		if (!(node instanceof RemoteNode)) return Promise.resolve();
 
 		return GitActions.Remote.prune(node.repo, node.remote.name);
