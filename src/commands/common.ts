@@ -156,6 +156,7 @@ export enum Commands {
 	ShowSettingsPageAndJumpToViews = 'gitlens.showSettingsPage#views',
 	ShowStashesView = 'gitlens.showStashesView',
 	ShowTagsView = 'gitlens.showTagsView',
+	ShowTimelinePage = 'gitlens.showTimelinePage',
 	ShowWelcomePage = 'gitlens.showWelcomePage',
 	ShowWelcomeView = 'gitlens.showWelcomeView',
 	StashApply = 'gitlens.stashApply',

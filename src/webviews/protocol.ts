@@ -83,6 +83,50 @@ export interface SettingsDidRequestJumpToNotificationParams {
 export const SettingsDidRequestJumpToNotificationType =
 	new IpcNotificationType<SettingsDidRequestJumpToNotificationParams>('settings/jumpTo');
 
+export interface TimelineDatum {
+	author: string;
+	added: number;
+	changed: number;
+	deleted: number;
+	commit: string;
+	date: Date;
+	message: string;
+}
+
+export interface TimelineData {
+	dataset: TimelineDatum[];
+	period: string;
+	repoPath: string;
+	title: string;
+	uri?: string;
+}
+
+export interface TimelineDidChangeDataNotificationParams {
+	data?: TimelineData;
+}
+export const TimelineDidChangeDataNotificationType = new IpcNotificationType<TimelineDidChangeDataNotificationParams>(
+	'timeline/data/didChange',
+);
+
+export interface TimelineDataPointClickCommandParams {
+	data?: {
+		id: string;
+		selected: boolean;
+	};
+}
+export const TimelineDataPointClickCommandType = new IpcCommandType<TimelineDataPointClickCommandParams>(
+	'timeline/point/click',
+);
+
+export interface TimelinePeriodUpdateCommandParams {
+	data?: {
+		period: string;
+	};
+}
+export const TimelinePeriodUpdateCommandType = new IpcCommandType<TimelinePeriodUpdateCommandParams>(
+	'timeline/period/update',
+);
+
 export interface AppStateWithConfig {
 	config: Config;
 	customSettings?: Record<string, boolean>;

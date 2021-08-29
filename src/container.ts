@@ -39,6 +39,8 @@ import { ViewFileDecorationProvider } from './views/viewDecorationProvider';
 import { VslsController } from './vsls/vsls';
 import { RebaseEditorProvider } from './webviews/rebaseEditor';
 import { SettingsWebview } from './webviews/settingsWebview';
+import { TimelineWebview } from './webviews/timelineWebview';
+import { TimelineWebviewView } from './webviews/timelineWebviewView';
 import { WelcomeWebview } from './webviews/welcomeWebview';
 
 export class Container {
@@ -73,6 +75,7 @@ export class Container {
 		context.subscriptions.push((this._codeLensController = new GitCodeLensController()));
 		context.subscriptions.push((this._keyboard = new Keyboard()));
 		context.subscriptions.push((this._settingsWebview = new SettingsWebview()));
+		context.subscriptions.push((this._timelineWebview = new TimelineWebview()));
 		context.subscriptions.push((this._welcomeWebview = new WelcomeWebview()));
 
 		context.subscriptions.push((this._repositoriesView = new RepositoriesView()));
@@ -85,6 +88,7 @@ export class Container {
 		context.subscriptions.push((this._tagsView = new TagsView()));
 		context.subscriptions.push((this._contributorsView = new ContributorsView()));
 		context.subscriptions.push((this._searchAndCompareView = new SearchAndCompareView()));
+		context.subscriptions.push((this._timelineView = new TimelineWebviewView()));
 
 		context.subscriptions.push((this._rebaseEditor = new RebaseEditorProvider()));
 
@@ -328,6 +332,16 @@ export class Container {
 		}
 
 		return this._tagsView;
+	}
+
+	private static _timelineView: TimelineWebviewView;
+	static get timelineView() {
+		return this._timelineView;
+	}
+
+	private static _timelineWebview: TimelineWebview;
+	static get timelineWebview() {
+		return this._timelineWebview;
 	}
 
 	private static _tracker: GitDocumentTracker;
